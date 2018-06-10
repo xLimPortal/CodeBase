@@ -30,6 +30,26 @@
 	    return $this;
 	  }
 
+	 function generateSalt($max = 64) {
+         $characterList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*?";
+         $i = 0;
+         $salt = "";
+        while ($i < $max) {
+          $salt .= $characterList{mt_rand(0, (strlen($characterList) - 1))};
+          $i++;
+          }
+          return $salt;
+     }
+         
+         public function hashed_password(){
+          $salt_hash = generateSalt();
+         $combo = $salt_hash . $password;
+         $hashed_password = hash('sha512', $combo);
+
+         return $hashed_password;
+         }
+        
+
  }
 
 ?>
